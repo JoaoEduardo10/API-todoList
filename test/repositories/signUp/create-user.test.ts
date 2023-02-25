@@ -7,7 +7,7 @@ import {
 import { IUser } from "../../../src/server/models/protocols";
 import { TOmitPassword } from "../../../src/server/types/types";
 
-const mockcreateUser: ICreateUserparams = {
+export const mockcreateUser: ICreateUserparams = {
   email: "joao@gmail.com",
   name: "joao",
   password: "1234",
@@ -26,7 +26,7 @@ export class mockcreateUserRepository implements ICreateUserRepository {
 
     user();
 
-    return await {
+    return {
       id: dataBase!.id,
       name: dataBase!.name,
       email: dataBase!.email,
