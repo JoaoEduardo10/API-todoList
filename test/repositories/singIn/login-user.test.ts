@@ -28,7 +28,7 @@ export class mockLoginUserRepository implements ILoginUserRepository {
   }
 }
 
-describe("login-user middleware/signIn", () => {
+describe("login-user repository/signIn", () => {
   it("should return a user existend", async () => {
     const repoditory = await new mockLoginUserRepository().login(
       mockLoginUser.email
