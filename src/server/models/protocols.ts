@@ -23,5 +23,9 @@ export interface ITasks {
 export interface IBoard {
   id: Tparams;
   boardName: string;
-  taks: Schema.Types.ObjectId | Tparams;
+  taks: [
+    {
+      task: Schema.Types.ObjectId | Tparams;
+    }
+  ];
 }
