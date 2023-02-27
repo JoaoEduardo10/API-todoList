@@ -7,3 +7,7 @@ export interface ICreateBoardParams {
 export interface ICreateBoardRepository {
   create(params: ICreateBoardParams): Promise<IBoard>;
 }
+
+export interface IGetAllBoardRepository {
+  getAll(): Promise<IBoard[]>;
+}
