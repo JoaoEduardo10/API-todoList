@@ -13,7 +13,6 @@ import {
   ILoginUserParams,
   ILoginUserRepository,
 } from "../../../src/server/controller/singIn/protocols";
-import { createJwt } from "../../../src/server/helpers/jwt-user";
 import { describe, expect, it } from "vitest";
 
 export const mockReq = {
