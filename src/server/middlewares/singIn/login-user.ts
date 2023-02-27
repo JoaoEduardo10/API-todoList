@@ -8,7 +8,7 @@ export const loginUserMiddlware: RequestHandler<
   {},
   {},
   ILoginUserParams
-> = async (req, _res, next) => {
+> = async (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
