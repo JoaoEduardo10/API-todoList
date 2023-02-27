@@ -2,7 +2,7 @@ import "express-async-errors";
 import express from "express";
 import "dotenv/config";
 import { globalsErrors } from "./middlewares/globals-errors";
-import { router } from "../router";
+import { router } from "./router";
 
 const server = express();
 
