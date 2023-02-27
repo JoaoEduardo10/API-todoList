@@ -15,8 +15,10 @@ export interface IUser {
 
 export interface ITasks {
   id: Tparams;
+  text: string;
   description: string;
   subTasks: ISubTasks[];
+  status: "pending" | "progress" | "concluded";
   boardId: Schema.Types.ObjectId | Tparams;
 }
 
