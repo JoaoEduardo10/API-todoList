@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import { GetBoardController } from "../../controller/task/get-board";
+import { GetBoardController } from "../../controller/board/get-board";
 import { MongoGetBoardRepository } from "../../repositories/board/get-task";
 
 export const getBoardRouter: RequestHandler = async (req, res) => {

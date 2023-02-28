@@ -1,7 +1,7 @@
 import {
   IGetBoard,
   IGetBoardRepository,
-} from "../../controller/task/protocols";
+} from "../../controller/board/protocols";
 import { Board } from "../../models/mongo-models/Board";
 
 export class MongoGetBoardRepository implements IGetBoardRepository {
