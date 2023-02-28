@@ -7,7 +7,7 @@ export interface ICreateTaskParams {
   subTasks: [
     {
       text: string;
-      concluded?: boolean;
+      concluded: boolean;
     }
   ];
   boardConnect: Schema.Types.ObjectId | string;
