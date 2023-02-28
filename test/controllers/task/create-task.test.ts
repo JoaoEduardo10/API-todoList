@@ -1,6 +1,5 @@
 import { describe, expect, it } from "vitest";
 import { CreateTaskController } from "../../../src/server/controller/task/create-task";
-import { MongoCreateTaskRepository } from "../../../src/server/repositories/task/create-task";
 import {
   mockCreateTask,
   MockCreateTaskRepository,
