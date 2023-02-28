@@ -10,7 +10,7 @@ export interface ICreateTaskParams {
       concluded?: boolean;
     }
   ];
-  boardId: Schema.Types.ObjectId | string;
+  boardConnect: Schema.Types.ObjectId | string;
 }
 
 export interface ICreateTaskRepository {

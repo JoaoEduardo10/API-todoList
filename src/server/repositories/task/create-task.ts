@@ -3,7 +3,6 @@ import {
   ICreateTaskRepository,
 } from "../../controller/task/protocols";
 import { Internal_Server_Error } from "../../helpers/api-errors";
-import { Board } from "../../models/mongo-models/Board";
 import { Task } from "../../models/mongo-models/Tasks";
 import { ITasks } from "../../models/protocols";
 
@@ -17,13 +16,11 @@ export class MongoCreateTaskRepository implements ICreateTaskRepository {
       );
     }
 
-    const { _id, boardId, subTasks, text, description, status } = task;
-
-    await Board.findByIdAndUpdate(boardId, { $push: { taks: _id } });
+    const { _id, boardConnect, subTasks, text, description, status } = task;
 
     return {
       id: _id.toHexString(),
-      boardId,
+      boardConnect,
       subTasks,
       text,
       description,
