@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { createUserMiddleware } from "./middlewares/signUp/create-user";
 import { loginUserMiddlware } from "./middlewares/singIn/login-user";
+import { createTaskMiddleware } from "./middlewares/task/create-task";
 import { createBoardRouter } from "./useCases/board/create-board";
 import { loginUserRouter } from "./useCases/signIn/login-user";
 import { createUserRouter } from "./useCases/signUp/create-user";
@@ -16,6 +17,6 @@ router.post("/login", loginUserMiddlware, loginUserRouter);
 router.post("/boards", createBoardRouter);
 
 // task
-router.post("/tasks", createTaskRouter);
+router.post("/tasks", createTaskMiddleware, createTaskRouter);
 
 export { router };
