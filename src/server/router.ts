@@ -9,6 +9,7 @@ import { getBoardRouter } from "./useCases/board/get-board";
 import { loginUserRouter } from "./useCases/signIn/login-user";
 import { createUserRouter } from "./useCases/signUp/create-user";
 import { createTaskRouter } from "./useCases/task/create-task";
+import { getTaskRouter } from "./useCases/task/get-task";
 
 const router = Router();
 
@@ -21,6 +22,7 @@ router.get("/boards/:boardId", getBoardMiddleware, getBoardRouter);
 router.post("/boards", createBoardMiddleware, createBoardRouter);
 
 // task
+router.get("/tasks/:taskId", getTaskRouter);
 router.post("/tasks", createTaskMiddleware, createTaskRouter);
 
 export { router };

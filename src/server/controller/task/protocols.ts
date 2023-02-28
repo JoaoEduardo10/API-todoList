@@ -16,3 +16,7 @@ export interface ICreateTaskParams {
 export interface ICreateTaskRepository {
   create(params: ICreateTaskParams): Promise<ITasks>;
 }
+
+export interface IGetTaskRepository {
+  get(id: string): Promise<ITasks>;
+}
