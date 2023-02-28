@@ -1,6 +1,7 @@
 import { model, Schema } from "mongoose";
 import { TOmitId } from "../../types/types";
 import { IBoard } from "../protocols";
+import { v4 as uuid4 } from "uuid";
 
 const Board = model(
   "Board",
@@ -10,15 +11,9 @@ const Board = model(
       required: true,
       min: 3,
     },
-    taks: {
-      type: [
-        {
-          task: {
-            type: Schema.Types.ObjectId,
-            ref: "Task",
-          },
-        },
-      ],
+    taskConnect: {
+      type: String,
+      default: uuid4,
     },
   })
 );

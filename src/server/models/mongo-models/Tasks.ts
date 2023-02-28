@@ -34,9 +34,9 @@ const Task = model(
         },
       ],
     },
-    boardId: {
+    boardConnect: {
       required: true,
-      type: Schema.Types.ObjectId,
+      type: String,
       ref: "Board",
     },
   })

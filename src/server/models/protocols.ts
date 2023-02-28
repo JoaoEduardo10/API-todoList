@@ -1,4 +1,3 @@
-import { Schema } from "mongoose";
 import { Tparams } from "../types/types";
 
 export type ISubTasks = {
@@ -19,15 +18,11 @@ export interface ITasks {
   description: string;
   subTasks: ISubTasks[];
   status: "pending" | "progress" | "concluded";
-  boardId: Schema.Types.ObjectId | Tparams;
+  boardConnect: string;
 }
 
 export interface IBoard {
   id: Tparams;
   boardName: string;
-  taks: [
-    {
-      task: Schema.Types.ObjectId | Tparams;
-    }
-  ];
+  taskConnect: string;
 }
