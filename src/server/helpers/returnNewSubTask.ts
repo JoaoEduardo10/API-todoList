@@ -13,8 +13,6 @@ export const returnsNewSubTask = (
   subtask: ISubTasks[],
   newSubTask: TsubTask
 ) => {
-  console.log(subtask);
-
   newSubTask.map((sub, index) => {
     if (sub.uuid == subtask[index].uuid) {
       subtask[index].concluded = sub.concluded;

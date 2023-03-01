@@ -11,5 +11,5 @@ export const UpdateSubTaskRouter: RequestHandler = async (req, res) => {
 
   const { body, statusCode } = await updateSubTaskController.handle(req);
 
-  res.status(statusCode).json("ok");
+  res.status(statusCode).json(body);
 };
