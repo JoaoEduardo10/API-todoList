@@ -9,13 +9,11 @@ import { ITasks } from "../../models/protocols";
 
 export class MongoUpdateSubTaskRepository implements IUpdateSubTaskRepository {
   async update(id: string, params: ISubTaskParams): Promise<ITasks> {
-    const { subTask } = params;
-
     const subTaskOfId = await Task.findById(id);
 
     const { subTasks: subTaskCompleted } = subTaskOfId!;
 
-    const newSubTask = returnsNewSubTask(subTaskCompleted, subTask);
+    const newSubTask = returnsNewSubTask(subTaskCompleted, params);
 
     const updateTask = await Task.findByIdAndUpdate(id, {
       $set: { subTasks: newSubTask },

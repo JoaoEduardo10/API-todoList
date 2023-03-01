@@ -13,15 +13,13 @@ export interface ICreateTaskParams {
   boardConnect: Schema.Types.ObjectId | string;
 }
 
-export interface ISubTaskParams {
-  subTask: [
-    {
-      text: string;
-      uuid: string;
-      concluded: boolean;
-    }
-  ];
-}
+export type ISubTaskParams = [
+  {
+    text: string;
+    uuid: string;
+    concluded: boolean;
+  }
+];
 
 export interface ICreateTaskRepository {
   create(params: ICreateTaskParams): Promise<ITasks>;
