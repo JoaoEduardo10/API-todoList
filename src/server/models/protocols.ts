@@ -3,6 +3,7 @@ import { Tparams } from "../types/types";
 export type ISubTasks = {
   text: string;
   concluded: boolean;
+  uuid: string;
 };
 
 export interface IUser {

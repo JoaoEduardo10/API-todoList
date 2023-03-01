@@ -1,6 +1,7 @@
 import { model, Schema } from "mongoose";
 import { TOmitId } from "../../types/types";
 import { ITasks } from "../protocols";
+import { v4 as uuId4 } from "uuid";
 
 const Task = model(
   "Task",
@@ -30,6 +31,10 @@ const Task = model(
           concluded: {
             type: Boolean,
             default: false,
+          },
+          uuid: {
+            type: String,
+            default: uuId4,
           },
         },
       ],

@@ -11,6 +11,7 @@ import { loginUserRouter } from "./useCases/signIn/login-user";
 import { createUserRouter } from "./useCases/signUp/create-user";
 import { createTaskRouter } from "./useCases/task/create-task";
 import { getTaskRouter } from "./useCases/task/get-task";
+import { UpdateSubTaskRouter } from "./useCases/task/update-subTask-task";
 
 const router = Router();
 
@@ -25,5 +26,6 @@ router.post("/boards", createBoardMiddleware, createBoardRouter);
 // task
 router.get("/tasks/:taskId", getTaskMiddleware, getTaskRouter);
 router.post("/tasks", createTaskMiddleware, createTaskRouter);
+router.patch("/tasks/:subTaskId/subtask", UpdateSubTaskRouter);
 
 export { router };
