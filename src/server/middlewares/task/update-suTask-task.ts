@@ -3,7 +3,6 @@ import { RequestHandler } from "express";
 import { ISubTaskParams } from "../../controller/task/protocols";
 import { Bad_Request, Not_Fould } from "../../helpers/api-errors";
 import { Task } from "../../models/mongo-models/Tasks";
-import { ISubTasks } from "../../models/protocols";
 
 export const updateSubTaskMiddleware: RequestHandler<
   { subTaskId: string },
