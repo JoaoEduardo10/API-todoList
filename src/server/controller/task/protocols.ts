@@ -21,6 +21,10 @@ export type ISubTaskParams = [
   }
 ];
 
+export interface IStatusParams {
+  status: "pending" | "progress" | "concluded";
+}
+
 export interface ICreateTaskRepository {
   create(params: ICreateTaskParams): Promise<ITasks>;
 }
@@ -31,4 +35,8 @@ export interface IGetTaskRepository {
 
 export interface IUpdateSubTaskRepository {
   update(id: string, params: ISubTaskParams): Promise<ITasks>;
+}
+
+export interface IUpdateStatusRepositopry {
+  update(id: string, params: IStatusParams): Promise<ITasks>;
 }

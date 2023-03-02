@@ -12,6 +12,7 @@ import { loginUserRouter } from "./useCases/signIn/login-user";
 import { createUserRouter } from "./useCases/signUp/create-user";
 import { createTaskRouter } from "./useCases/task/create-task";
 import { getTaskRouter } from "./useCases/task/get-task";
+import { updateStatustaskRouter } from "./useCases/task/update-status-task";
 import { UpdateSubTaskRouter } from "./useCases/task/update-subTask-task";
 
 const router = Router();
@@ -32,5 +33,6 @@ router.patch(
   updateSubTaskMiddleware,
   UpdateSubTaskRouter
 );
+router.patch("/tasks/:statusId/status", updateStatustaskRouter);
 
 export { router };
