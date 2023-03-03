@@ -13,6 +13,7 @@ import { loginUserRouter } from "./useCases/signIn/login-user";
 import { createUserRouter } from "./useCases/signUp/create-user";
 import { createTaskRouter } from "./useCases/task/create-task";
 import { getTaskRouter } from "./useCases/task/get-task";
+import { updateCompleteTaskRouter } from "./useCases/task/update-complete-task";
 import { updateStatustaskRouter } from "./useCases/task/update-status-task";
 import { UpdateSubTaskRouter } from "./useCases/task/update-subTask-task";
 
@@ -39,5 +40,7 @@ router.patch(
   updateStatusTaskMiddleware,
   updateStatustaskRouter
 );
+
+router.patch("/tasks/:taskId", updateCompleteTaskRouter);
 
 export { router };

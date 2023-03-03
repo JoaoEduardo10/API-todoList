@@ -1,5 +1,6 @@
 import { Schema } from "mongoose";
 import { ITasks } from "../../models/protocols";
+import { TOmitId } from "../../types/types";
 
 export interface ICreateTaskParams {
   text: string;
@@ -39,4 +40,8 @@ export interface IUpdateSubTaskRepository {
 
 export interface IUpdateStatusRepositopry {
   update(id: string, params: IStatusParams): Promise<ITasks>;
+}
+
+export interface IUpdateCompleteTaskRepository {
+  update(id: string, task: TOmitId<ITasks>): Promise<ITasks>;
 }
