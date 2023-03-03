@@ -45,3 +45,7 @@ export interface IUpdateStatusRepositopry {
 export interface IUpdateCompleteTaskRepository {
   update(id: string, task: TOmitId<ITasks>): Promise<ITasks>;
 }
+
+export interface IDeleteTaskRepository {
+  delete(id: string): Promise<ITasks>;
+}

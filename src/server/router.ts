@@ -4,6 +4,7 @@ import { getBoardMiddleware } from "./middlewares/board/get-board";
 import { createUserMiddleware } from "./middlewares/signUp/create-user";
 import { loginUserMiddlware } from "./middlewares/singIn/login-user";
 import { createTaskMiddleware } from "./middlewares/task/create-task";
+import { deleteTaskMiddleware } from "./middlewares/task/delete-task";
 import { getTaskMiddleware } from "./middlewares/task/get-task";
 import { updateCompleteTaskMiddleware } from "./middlewares/task/update-complete-task";
 import { updateStatusTaskMiddleware } from "./middlewares/task/update-status-task";
@@ -13,6 +14,7 @@ import { getBoardRouter } from "./useCases/board/get-board";
 import { loginUserRouter } from "./useCases/signIn/login-user";
 import { createUserRouter } from "./useCases/signUp/create-user";
 import { createTaskRouter } from "./useCases/task/create-task";
+import { deleteTaskRouter } from "./useCases/task/delete-task";
 import { getTaskRouter } from "./useCases/task/get-task";
 import { updateCompleteTaskRouter } from "./useCases/task/update-complete-task";
 import { updateStatustaskRouter } from "./useCases/task/update-status-task";
@@ -47,5 +49,7 @@ router.patch(
   updateCompleteTaskMiddleware,
   updateCompleteTaskRouter
 );
+
+router.delete("/tasks/:taskId", deleteTaskMiddleware, deleteTaskRouter);
 
 export { router };
