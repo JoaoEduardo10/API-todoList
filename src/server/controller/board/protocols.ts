@@ -28,5 +28,5 @@ export interface ICreateBoardRepository {
 }
 
 export interface IGetBoardRepository {
-  get(id: string): Promise<IGetBoard>;
+  get(id: string, userId: string): Promise<IGetBoard>;
 }
