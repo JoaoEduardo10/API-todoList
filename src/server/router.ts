@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { authenticationMiddleware } from "./middlewares/authentication";
 import { createBoardMiddleware } from "./middlewares/board/create-board";
 import { getBoardMiddleware } from "./middlewares/board/get-board";
 import { createUserMiddleware } from "./middlewares/signUp/create-user";
@@ -27,7 +28,12 @@ router.post("/users", createUserMiddleware, createUserRouter);
 router.post("/login", loginUserMiddlware, loginUserRouter);
 
 // board
-router.get("/boards/:boardId", getBoardMiddleware, getBoardRouter);
+router.get(
+  "/boards/:boardId",
+  authenticationMiddleware,
+  getBoardMiddleware,
+  getBoardRouter
+);
 router.post("/boards", createBoardMiddleware, createBoardRouter);
 
 // task
