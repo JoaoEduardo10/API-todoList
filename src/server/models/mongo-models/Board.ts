@@ -15,6 +15,11 @@ const Board = model(
       type: String,
       default: uuid4,
     },
+    userId: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+    },
   })
 );
 

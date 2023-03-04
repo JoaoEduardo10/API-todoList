@@ -28,5 +28,7 @@ export const authenticationMiddleware: RequestHandler = async (
     throw new Unauthorezid("Token invalido!");
   }
 
+  req.headers.userId = verifyToken.id as string;
+
   next();
 };

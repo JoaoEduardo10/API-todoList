@@ -7,8 +7,16 @@ import { Board } from "../../models/mongo-models/Board";
 import { IBoard } from "../../models/protocols";
 
 export class MongoCreateBoardRepository implements ICreateBoardRepository {
-  async create(params: ICreateBoardParams): Promise<IBoard> {
-    const board = await Board.create(params);
+  async create(
+    params: ICreateBoardParams,
+    userId: string
+  ): Promise<Omit<IBoard, "userId">> {
+    const allParams = {
+      ...params,
+      userId,
+    };
+
+    const board = await Board.create(allParams);
 
     if (!board) {
       throw new Internal_Server_Error(

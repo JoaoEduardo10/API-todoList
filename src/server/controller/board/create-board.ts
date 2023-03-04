@@ -7,10 +7,14 @@ export class CreateBoardController implements IControllers {
 
   async handle(
     req: IHttRequest<ICreateBoardParams>
-  ): Promise<IHttReponse<IBoard>> {
+  ): Promise<IHttReponse<Omit<IBoard, "userId">>> {
     const { boardName } = req.body!;
+    const { userId } = req.headers!;
 
-    const board = await this.createBoardRepository.create({ boardName });
+    const board = await this.createBoardRepository.create(
+      { boardName },
+      userId
+    );
 
     return {
       body: board,

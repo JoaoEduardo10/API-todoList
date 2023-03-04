@@ -5,7 +5,9 @@ export interface IHttReponse<B> {
 
 export interface IHttRequest<B> {
   params?: any;
-  headers?: any;
+  headers?: {
+    userId: string;
+  };
   body?: B;
 }
 

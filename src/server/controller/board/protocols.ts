@@ -21,7 +21,10 @@ export interface IGetBoard {
 }
 
 export interface ICreateBoardRepository {
-  create(params: ICreateBoardParams): Promise<IBoard>;
+  create(
+    params: ICreateBoardParams,
+    userId: string
+  ): Promise<Omit<IBoard, "userId">>;
 }
 
 export interface IGetBoardRepository {
