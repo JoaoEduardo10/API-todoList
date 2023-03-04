@@ -12,6 +12,7 @@ import { updateStatusTaskMiddleware } from "./middlewares/task/update-status-tas
 import { updateSubTaskMiddleware } from "./middlewares/task/update-suTask-task";
 import { createBoardRouter } from "./useCases/board/create-board";
 import { getBoardRouter } from "./useCases/board/get-board";
+import { getAllBoardsRouter } from "./useCases/board/getAll-boads";
 import { loginUserRouter } from "./useCases/signIn/login-user";
 import { createUserRouter } from "./useCases/signUp/create-user";
 import { createTaskRouter } from "./useCases/task/create-task";
@@ -28,6 +29,7 @@ router.post("/users", createUserMiddleware, createUserRouter);
 router.post("/login", loginUserMiddlware, loginUserRouter);
 
 // board
+router.get("/boards", authenticationMiddleware, getAllBoardsRouter);
 router.get(
   "/boards/:boardId",
   authenticationMiddleware,

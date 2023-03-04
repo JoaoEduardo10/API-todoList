@@ -1,5 +1,6 @@
 import { RequestHandler } from "express";
 import { CreateBoardController } from "../../controller/board/create-board";
+import { IHttRequest } from "../../controller/protocols";
 import { MongoCreateBoardRepository } from "../../repositories/board/create-board";
 
 export const createBoardRouter: RequestHandler = async (req, res) => {
@@ -9,7 +10,9 @@ export const createBoardRouter: RequestHandler = async (req, res) => {
     mongoCreateBoardRepository
   );
 
-  const { body, statusCode } = await createBoardController.handle(req);
+  const { body, statusCode } = await createBoardController.handle(
+    req as IHttRequest<any>
+  );
 
   res.status(statusCode).json(body);
 };

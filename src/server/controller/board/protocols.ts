@@ -30,3 +30,7 @@ export interface ICreateBoardRepository {
 export interface IGetBoardRepository {
   get(id: string, userId: string): Promise<IGetBoard>;
 }
+
+export interface IGetAllBoardsRepository {
+  get(userId: string): Promise<Omit<IGetBoard, "tasks">[]>;
+}

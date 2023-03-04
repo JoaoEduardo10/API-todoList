@@ -1,4 +1,5 @@
 import { RequestHandler } from "express";
+import { IHttRequest } from "../../controller/protocols";
 import { GetTaskController } from "../../controller/task/get-task";
 import { MongoGetTaskRepository } from "../../repositories/task/get-task";
 
@@ -9,7 +10,9 @@ export const getTaskRouter: RequestHandler = async (req, res) => {
     mongoGetTaskRepository
   );
 
-  const { body, statusCode } = await getTaskConytroller.handle(req);
+  const { body, statusCode } = await getTaskConytroller.handle(
+    req as IHttRequest<any>
+  );
 
   res.status(statusCode).json(body);
 };
