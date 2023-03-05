@@ -9,7 +9,7 @@ export class MongoCreateTaskRepository implements ICreateTaskRepository {
   async create(params: ICreateTaskParams): Promise<ITasks> {
     const task = await Task.create(params);
 
-    const { _id, boardConnect, subTasks, text, description, status } = task;
+    const { _id, boardConnect, subTasks, text, description, status } = task!;
 
     return {
       id: _id.toHexString(),
