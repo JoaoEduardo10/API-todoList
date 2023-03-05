@@ -8,4 +8,13 @@ describe("get-task middleware/get-task", () => {
     expect(statusCode).toBe(404);
     expect(body).toEqual({});
   });
+
+  it("should returns 404 error from sending an id not existe", async () => {
+    const { statusCode, body } = await serverTest
+      .get("/tasks/63ff9e27777e30323ed90a65")
+      .send({});
+
+    expect(statusCode).toBe(404);
+    expect(body).toEqual({ error: "Task não existe!" });
+  });
 });
