@@ -1,12 +1,6 @@
-import { afterAll, afterEach, beforeEach, describe, expect, it } from "vitest";
+import { describe, expect, it } from "vitest";
 import { DeleteTaskController } from "../../../src/server/controller/task/delete-task";
-import {
-  ICreateTaskParams,
-  ICreateTaskRepository,
-  IDeleteTaskRepository,
-  ISubTaskParams,
-} from "../../../src/server/controller/task/protocols";
-import { Task } from "../../../src/server/models/mongo-models/Tasks";
+import { IDeleteTaskRepository } from "../../../src/server/controller/task/protocols";
 import { ITasks } from "../../../src/server/models/protocols";
 import { mockCreatetask } from "../../repositories/task/delete-task.test";
 

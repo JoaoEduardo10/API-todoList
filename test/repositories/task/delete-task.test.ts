@@ -1,4 +1,4 @@
-import { afterAll, afterEach, beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { Task } from "../../../src/server/models/mongo-models/Tasks";
 import { ITasks } from "../../../src/server/models/protocols";
 import { MongoDeleteTaskRepository } from "../../../src/server/repositories/task/delete-task";

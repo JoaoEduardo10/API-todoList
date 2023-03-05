@@ -1,36 +1,26 @@
-import { describe, expect, it } from "vitest";
-import { IGetTaskRepository } from "../../../src/server/controller/task/protocols";
-import { ITasks } from "../../../src/server/models/protocols";
+import { beforeEach, describe, expect, it } from "vitest";
+import { Task } from "../../../src/server/models/mongo-models/Tasks";
+import { MongoGetTaskRepository } from "../../../src/server/repositories/task/get-task";
+import { mockCreatetask } from "./delete-task.test";
 
-export class MockGetTaskRepository implements IGetTaskRepository {
-  async get(id: string): Promise<ITasks> {
-    return {
-      boardConnect: id,
-      description: "test",
-      id: id,
-      status: "pending",
-      subTasks: [
-        {
-          concluded: false,
-          text: "test",
-        },
-      ],
-      text: "test",
-    };
-  }
-}
-
-const test = "123";
+const task = {
+  id: "",
+};
 
 describe("get-task repository/get-task", () => {
-  it("should returns a task", async () => {
-    const reporitory = await new MockGetTaskRepository().get("123");
+  beforeEach(async () => {
+    const taskCreate = await Task.create({ ...mockCreatetask });
 
-    expect(reporitory.id).toBe(test);
-    expect(reporitory.status).toBe("pending");
-    expect(reporitory.boardConnect).toBe(test);
-    expect(reporitory.subTasks.length).toBe(1);
-    expect(reporitory.text).toBe("test");
-    expect(reporitory.description).toBe("test");
-  });
+    task.id = taskCreate._id.toHexString();
+  }),
+    it("should returns a task", async () => {
+      const reporitory = await new MongoGetTaskRepository().get(task.id);
+
+      expect(reporitory.id).toBe(task.id);
+      expect(reporitory.status).toBe("pending");
+      expect(reporitory.boardConnect).toBe("123");
+      expect(reporitory.subTasks.length).toBe(1);
+      expect(reporitory.text).toBe("test");
+      expect(reporitory.description).toBe("test");
+    });
 });

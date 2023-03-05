@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { MockGetTaskRepository } from "../../repositories/task/get-task.test";
 import { GetTaskController } from "../../../src/server/controller/task/get-task";
 import { ITasks } from "../../../src/server/models/protocols";
+import { IGetTaskRepository } from "../../../src/server/controller/task/protocols";
 
 const mockBody: ITasks = {
   boardConnect: "123",
@@ -12,10 +12,30 @@ const mockBody: ITasks = {
     {
       concluded: false,
       text: "test",
+      uuid: "123",
     },
   ],
   text: "test",
 };
+
+export class MockGetTaskRepository implements IGetTaskRepository {
+  async get(id: string): Promise<ITasks> {
+    return {
+      boardConnect: id,
+      description: "test",
+      id: id,
+      status: "pending",
+      subTasks: [
+        {
+          concluded: false,
+          text: "test",
+          uuid: "123",
+        },
+      ],
+      text: "test",
+    };
+  }
+}
 
 const mockReq = {
   params: {
@@ -27,9 +47,9 @@ const mockReq = {
 
 describe("get-task controller/get-task", () => {
   it("should returns status codes 200 with a task", async () => {
-    const repository = await new MockGetTaskRepository();
+    const repository = new MockGetTaskRepository();
 
-    const controller = await new GetTaskController(repository);
+    const controller = new GetTaskController(repository);
 
     const { body, statusCode } = await controller.handle(mockReq);
 
