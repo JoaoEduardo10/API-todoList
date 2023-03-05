@@ -1,9 +1,6 @@
 import { describe, expect, it } from "vitest";
-import {
-  ICreateTaskParams,
-  ICreateTaskRepository,
-} from "../../../src/server/controller/task/protocols";
-import { ITasks } from "../../../src/server/models/protocols";
+import { ICreateTaskParams } from "../../../src/server/controller/task/protocols";
+import { MongoCreateTaskRepository } from "../../../src/server/repositories/task/create-task";
 
 export const mockCreateTask: ICreateTaskParams = {
   boardConnect: "123",
@@ -17,27 +14,9 @@ export const mockCreateTask: ICreateTaskParams = {
   description: "um teste",
 };
 
-export class MockCreateTaskRepository implements ICreateTaskRepository {
-  async create(params: ICreateTaskParams): Promise<ITasks> {
-    const { boardConnect, subTasks, text, description } = params;
-
-    const newBoadConnet = boardConnect as string;
-    const newDescription = description as string;
-
-    return {
-      boardConnect: newBoadConnet,
-      description: newDescription,
-      id: "123",
-      status: "pending",
-      subTasks,
-      text,
-    };
-  }
-}
-
 describe("create-task repository/create-task", () => {
   it("should returns a task created", async () => {
-    const repository = await new MockCreateTaskRepository().create(
+    const repository = await new MongoCreateTaskRepository().create(
       mockCreateTask
     );
 
