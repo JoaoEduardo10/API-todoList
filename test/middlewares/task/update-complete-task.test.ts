@@ -24,7 +24,7 @@ describe("update-complete-task middleware/upadate-complete-task", () => {
     expect(body).toEqual({ error: "Id imcompleto ou incorreto!" });
   });
 
-  it("should returns 404 error from sending an id less than 24", async () => {
+  it("should returns 404 error from sending an id not existe", async () => {
     const { statusCode, body } = await serverTest
       .patch("/tasks/63ff9e27777e30323ed90a65")
       .send({});
