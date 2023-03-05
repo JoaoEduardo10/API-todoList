@@ -1,5 +1,6 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
 import { ICreateTaskParams } from "../../../src/server/controller/task/protocols";
+import { Task } from "../../../src/server/models/mongo-models/Tasks";
 import { MongoCreateTaskRepository } from "../../../src/server/repositories/task/create-task";
 
 export const mockCreateTask: ICreateTaskParams = {
@@ -15,6 +16,10 @@ export const mockCreateTask: ICreateTaskParams = {
 };
 
 describe("create-task repository/create-task", () => {
+  afterEach(async () => {
+    await Task.deleteMany();
+  });
+
   it("should returns a task created", async () => {
     const repository = await new MongoCreateTaskRepository().create(
       mockCreateTask

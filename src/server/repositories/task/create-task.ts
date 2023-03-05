@@ -2,7 +2,6 @@ import {
   ICreateTaskParams,
   ICreateTaskRepository,
 } from "../../controller/task/protocols";
-import { Internal_Server_Error } from "../../helpers/api-errors";
 import { Task } from "../../models/mongo-models/Tasks";
 import { ITasks } from "../../models/protocols";
 
