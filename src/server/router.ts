@@ -30,57 +30,29 @@ router.post("/login", loginUserMiddlware, loginUserRouter);
 
 // board
 router.get("/boards", authenticationMiddleware, getAllBoardsRouter);
-router.get(
-  "/boards/:boardId",
-  authenticationMiddleware,
-  getBoardMiddleware,
-  getBoardRouter
-);
-router.post(
-  "/boards",
-  authenticationMiddleware,
-  createBoardMiddleware,
-  createBoardRouter
-);
+router.get("/boards/:boardId", getBoardMiddleware, getBoardRouter);
+router.post("/boards", createBoardMiddleware, createBoardRouter);
 
 // task
-router.get(
-  "/tasks/:taskId",
-  authenticationMiddleware,
-  getTaskMiddleware,
-  getTaskRouter
-);
-router.post(
-  "/tasks",
-  authenticationMiddleware,
-  createTaskMiddleware,
-  createTaskRouter
-);
+router.get("/tasks/:taskId", getTaskMiddleware, getTaskRouter);
+router.post("/tasks", createTaskMiddleware, createTaskRouter);
 router.patch(
   "/tasks/:subTaskId/subtask",
-  authenticationMiddleware,
   updateSubTaskMiddleware,
   UpdateSubTaskRouter
 );
 router.patch(
   "/tasks/:statusId/status",
-  authenticationMiddleware,
   updateStatusTaskMiddleware,
   updateStatustaskRouter
 );
 
 router.patch(
   "/tasks/:taskId",
-  authenticationMiddleware,
   updateCompleteTaskMiddleware,
   updateCompleteTaskRouter
 );
 
-router.delete(
-  "/tasks/:taskId",
-  authenticationMiddleware,
-  deleteTaskMiddleware,
-  deleteTaskRouter
-);
+router.delete("/tasks/:taskId", deleteTaskMiddleware, deleteTaskRouter);
 
 export { router };

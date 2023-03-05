@@ -23,7 +23,7 @@ export interface IGetBoard {
 export interface ICreateBoardRepository {
   create(
     params: ICreateBoardParams,
-    userId: string
+    userId: string | Schema.Types.ObjectId
   ): Promise<Omit<IBoard, "userId">>;
 }
 
