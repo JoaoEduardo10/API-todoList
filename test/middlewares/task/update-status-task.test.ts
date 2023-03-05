@@ -1,4 +1,4 @@
-import mongoose, { Mongoose } from "mongoose";
+import mongoose from "mongoose";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { serverTest } from "../../globals-test";
 
