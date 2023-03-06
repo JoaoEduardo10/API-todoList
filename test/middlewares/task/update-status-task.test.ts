@@ -1,7 +1,22 @@
-import { describe, expect, it } from "vitest";
-import { serverTest } from "../../globals-test";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { Task } from "../../../src/server/models/mongo-models/Tasks";
+import { mockCreateTask, serverTest } from "../../globals-test";
+
+const task = {
+  id: "",
+};
 
 describe("update-status middleware/update-status-task", () => {
+  beforeEach(async () => {
+    const createTask = await Task.create(mockCreateTask);
+
+    task.id = createTask._id.toHexString();
+  });
+
+  afterEach(async () => {
+    await Task.deleteMany();
+  });
+
   it("should returns 404 error from sending an id less than 24", async () => {
     const { statusCode, body } = await serverTest
       .patch("/tasks/1233/status")
@@ -44,5 +59,16 @@ describe("update-status middleware/update-status-task", () => {
     expect(body).toEqual({
       error: "task não existe!",
     });
+  });
+
+  it("should returns status codes 200 with status fo task updated", async () => {
+    const { statusCode, body } = await serverTest
+      .patch(`/tasks/${task.id}/status`)
+      .send({
+        status: "progress",
+      });
+
+    expect(statusCode).toBe(200);
+    expect(body).toBeTruthy();
   });
 });
