@@ -14,6 +14,7 @@ interface IGetTask {
 }
 
 export interface IGetBoard {
+  _id?(_id?: any): Schema.Types.ObjectId;
   id: string;
   boardName: string;
   taskConnect: string;
