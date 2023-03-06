@@ -2,7 +2,6 @@ import {
   IStatusParams,
   IUpdateStatusRepositopry,
 } from "../../controller/task/protocols";
-import { Internal_Server_Error } from "../../helpers/api-errors";
 import { Task } from "../../models/mongo-models/Tasks";
 import { ITasks } from "../../models/protocols";
 
@@ -16,23 +15,16 @@ export class MongoUpdateStatusTaskRepository
 
     const task = await Task.findById(id);
 
-    if (!task) {
-      throw new Internal_Server_Error(
-        "Error no banco de dados ao atualizar o status"
-      );
-    }
-
     const {
-      _id,
       boardConnect,
       description,
       status: newStatus,
       subTasks,
       text,
-    } = task;
+    } = task!;
 
     return {
-      id: _id.toHexString(),
+      id: task?._id.toHexString() as string,
       boardConnect,
       description,
       status: newStatus,

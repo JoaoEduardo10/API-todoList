@@ -18,23 +18,27 @@ export const mockCreatetask: TOmitId<ITasks> = {
   status: "pending",
 };
 
-describe("delete-task repository/delete-task", () => {
-  let task: any = undefined;
+const task = {
+  id: "",
+};
 
+describe("delete-task repository/delete-task", () => {
   beforeEach(async () => {
-    task = await Task.create({ ...mockCreatetask });
+    const taskCreate = await Task.create({ ...mockCreatetask });
+
+    task.id = taskCreate._id.toHexString();
   });
 
   afterEach(async () => {
-    Task.findByIdAndDelete(task._id.toHexString());
+    Task.deleteMany();
   });
 
   it("should return a task", async () => {
-    const repository = await new MongoDeleteTaskRepository().delete(task._id);
+    const repository = await new MongoDeleteTaskRepository().delete(task.id);
 
     expect(repository.status).toBe("pending");
     expect(repository.subTasks.length).toBe(1);
-    expect(repository.id).toBe(task._id.toHexString());
+    expect(repository.id).toBe(task.id);
     expect(repository.text).toBe("test");
     expect(repository.boardConnect).toBe("123");
     expect(repository.description).toBe("test");

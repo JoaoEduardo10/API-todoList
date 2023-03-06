@@ -1,4 +1,4 @@
-import { describe, expect, it, beforeEach } from "vitest";
+import { describe, expect, it, beforeEach, afterEach } from "vitest";
 import { ITasks } from "../../../src/server/models/protocols";
 import { TOmitId } from "../../../src/server/types/types";
 import { MongoUpdateCompleteTaskRepository } from "../../../src/server/repositories/task/update-complete-task";
@@ -26,9 +26,13 @@ describe("update-complete-Task repository/update-complte-task", () => {
   beforeEach(async () => {
     const taskCreate = await Task.create(mockUpdateCompltetask);
 
-    const newTask = await Task.findById(taskCreate._id);
+    const newTask = await Task.findById(taskCreate._id.toHexString());
 
     task.id = newTask?._id.toHexString() as string;
+  });
+
+  afterEach(async () => {
+    await Task.deleteMany();
   });
 
   it("shuold return a task", async () => {

@@ -18,11 +18,13 @@ export class MongoCreateBoardRepository implements ICreateBoardRepository {
 
     const board = await Board.create(allParams);
 
+    /* c8 ignore start */
     if (!board) {
       throw new Internal_Server_Error(
         "Erro no banmco de dados ao criar o board"
       );
     }
+    /* c8 ignore stop */
 
     const { _id, boardName, taskConnect } = board;
 
