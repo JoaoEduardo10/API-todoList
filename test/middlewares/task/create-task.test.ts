@@ -1,7 +1,12 @@
-import { describe, expect, it } from "vitest";
-import { serverTest } from "../../globals-test";
+import { describe, expect, it, afterEach } from "vitest";
+import { Task } from "../../../src/server/models/mongo-models/Tasks";
+import { mockCreateTask, serverTest } from "../../globals-test";
 
 describe("create-task middlewre/create-task", () => {
+  afterEach(async () => {
+    await Task.deleteMany();
+  });
+
   it("shuold returns error for not seting text with status code 400", async () => {
     const { statusCode, body } = await serverTest.post("/tasks").send({});
 
@@ -65,5 +70,14 @@ describe("create-task middlewre/create-task", () => {
     expect(body).toEqual({
       error: "Adicione uma texto a subTask",
     });
+  });
+
+  it("shuold returns statuscode 201 with task created", async () => {
+    const { statusCode, body } = await serverTest
+      .post("/tasks")
+      .send(mockCreateTask);
+
+    expect(statusCode).toBe(201);
+    expect(body).toBeTruthy();
   });
 });

@@ -3,7 +3,7 @@ import { IUpdateCompleteTaskRepository } from "../../../src/server/controller/ta
 import { UpdateCompleteTaskController } from "../../../src/server/controller/task/update-complete-task";
 import { ITasks } from "../../../src/server/models/protocols";
 import { TOmitId } from "../../../src/server/types/types";
-import { mockUpdateCompltetask } from "../../repositories/task/update-complete-task.test";
+import { mockUpdateCompltetask } from "../../globals-test";
 
 const mockReq = {
   params: {

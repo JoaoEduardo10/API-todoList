@@ -11,6 +11,8 @@ export default defineConfig({
         "src/server/types/*.ts",
         "src/server/models/*.ts",
         "src/server/models/**/*.ts",
+        "src/server/repositories/**/*.ts",
+        "src/server/useCase/**/*.ts",
       ],
     },
   },

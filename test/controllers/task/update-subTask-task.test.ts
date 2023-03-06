@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { describe, expect, it } from "vitest";
-import { mockUpdateTask } from "../../repositories/task/update-subTask-task.test";
 import { UpdateSubTaskController } from "../../../src/server/controller/task/update-subTask-task";
 import {
   ISubTaskParams,
   IUpdateSubTaskRepository,
 } from "../../../src/server/controller/task/protocols";
 import { ITasks } from "../../../src/server/models/protocols";
+import { mockUpdateTask } from "../../globals-test";
 
 const mockReq = {
   params: {

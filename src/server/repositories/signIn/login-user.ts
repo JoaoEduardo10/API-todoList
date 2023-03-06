@@ -7,8 +7,10 @@ export class MongoLoginUserRepository implements ILoginUserRepository {
   async login(email: string): Promise<TOmitPassword<IUser>> {
     const user = await User.findOne({ email });
 
-    const { name, email: newEmail } = user!;
-
-    return { id: user?._id.toHexString() as string, name, email: newEmail };
+    return {
+      id: user?._id.toHexString() as string,
+      name: user?.name as string,
+      email: user?.email as string,
+    };
   }
 }

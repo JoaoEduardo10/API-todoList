@@ -1,47 +1,46 @@
 import { describe } from "vitest";
 import { expect, it } from "vitest";
 import {
-  IControllers,
-  IHttReponse,
-  IHttRequest,
-} from "../../../src/server/controller/protocols";
-import {
   ICreateUserparams,
   ICreateUserRepository,
 } from "../../../src/server/controller/signUp/protocols";
 import { IUser } from "../../../src/server/models/protocols";
 import { TOmitPassword } from "../../../src/server/types/types";
-import {
-  mockcreateUser,
-  mockcreateUserRepository,
-} from "../../repositories/signUp/create-user.test";
+import { CreateUserController } from "../../../src/server/controller/signUp/create-user";
+import { mockcreateUser } from "../../globals-test";
 
-class mockCreateUserController implements IControllers {
-  constructor(private readonly createUserRepository: ICreateUserRepository) {}
+const reqParams = {
+  params: {},
+  headers: {},
+  body: mockcreateUser,
+};
 
-  async handle(
-    req: IHttRequest<ICreateUserparams>
-  ): Promise<IHttReponse<TOmitPassword<IUser>>> {
-    const user = await this.createUserRepository.create(req.body!);
+export class mockcreateUserRepository implements ICreateUserRepository {
+  async create(params: ICreateUserparams): Promise<TOmitPassword<IUser>> {
+    let dataBase: IUser;
+
+    const user = () => {
+      dataBase = {
+        ...params,
+        id: "123",
+      };
+    };
+
+    user();
 
     return {
-      body: user,
-      statusCode: 201,
+      id: dataBase!.id,
+      name: dataBase!.name,
+      email: dataBase!.email,
     };
   }
 }
 
-const reqParams = {
-  params: "",
-  headers: "",
-  body: mockcreateUser,
-};
-
 describe("create-user controllers/signUp", () => {
   it("should returns statusCode 200 end body with an user", async () => {
-    const repositoty = await new mockcreateUserRepository();
+    const repositoty = new mockcreateUserRepository();
 
-    const controller = await new mockCreateUserController(repositoty);
+    const controller = new CreateUserController(repositoty);
 
     const { body, statusCode } = await controller.handle(reqParams);
 

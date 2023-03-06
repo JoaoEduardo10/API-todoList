@@ -2,7 +2,6 @@ import { describe, expect, it } from "vitest";
 import { DeleteTaskController } from "../../../src/server/controller/task/delete-task";
 import { IDeleteTaskRepository } from "../../../src/server/controller/task/protocols";
 import { ITasks } from "../../../src/server/models/protocols";
-import { mockCreatetask } from "../../repositories/task/delete-task.test";
 
 const mockReq = {
   params: {
@@ -15,8 +14,18 @@ const mockReq = {
 class MockDeleteTaskRepository implements IDeleteTaskRepository {
   async delete(id: string): Promise<ITasks> {
     return {
-      ...mockCreatetask,
       id: id,
+      status: "pending",
+      text: "test",
+      boardConnect: "123",
+      description: "test",
+      subTasks: [
+        {
+          concluded: false,
+          text: "test",
+          uuid: "123",
+        },
+      ],
     };
   }
 }

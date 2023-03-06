@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { CreateTaskController } from "../../../src/server/controller/task/create-task";
-import { mockCreateTask } from "../../repositories/task/create-task.test";
 import { MongoCreateTaskRepository } from "../../../src/server/repositories/task/create-task";
+import { mockCreateTask } from "../../globals-test";
 
 const mockReq = {
   params: {},

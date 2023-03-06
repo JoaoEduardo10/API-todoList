@@ -3,7 +3,7 @@ import {
   IUpdateStatusRepositopry,
 } from "../../controller/task/protocols";
 import { Task } from "../../models/mongo-models/Tasks";
-import { ITasks } from "../../models/protocols";
+import { ISubTasks, ITasks } from "../../models/protocols";
 
 export class MongoUpdateStatusTaskRepository
   implements IUpdateStatusRepositopry
@@ -15,21 +15,13 @@ export class MongoUpdateStatusTaskRepository
 
     const task = await Task.findById(id);
 
-    const {
-      boardConnect,
-      description,
-      status: newStatus,
-      subTasks,
-      text,
-    } = task!;
-
     return {
       id: task?._id.toHexString() as string,
-      boardConnect,
-      description,
-      status: newStatus,
-      subTasks,
-      text,
+      boardConnect: task?.boardConnect as string,
+      description: task?.description as string,
+      status: task?.status as "pending" | "progress" | "concluded",
+      subTasks: task?.subTasks as ISubTasks[],
+      text: task?.text as string,
     };
   }
 }
