@@ -31,7 +31,12 @@ router.post("/login", loginUserMiddlware, loginUserRouter);
 // board
 router.get("/boards", authenticationMiddleware, getAllBoardsRouter);
 router.get("/boards/:boardId", getBoardMiddleware, getBoardRouter);
-router.post("/boards", createBoardMiddleware, createBoardRouter);
+router.post(
+  "/boards",
+  authenticationMiddleware,
+  createBoardMiddleware,
+  createBoardRouter
+);
 
 // task
 router.get("/tasks/:taskId", getTaskMiddleware, getTaskRouter);
