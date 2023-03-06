@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
+import { IUpdateCompleteTaskRepository } from "../../../src/server/controller/task/protocols";
 import { UpdateCompleteTaskController } from "../../../src/server/controller/task/update-complete-task";
-import {
-  MockUpdateCompleteRepository,
-  mockUpdateCompltetask,
-} from "../../repositories/task/update-complete-task.test";
+import { ITasks } from "../../../src/server/models/protocols";
+import { TOmitId } from "../../../src/server/types/types";
+import { mockUpdateCompltetask } from "../../repositories/task/update-complete-task.test";
 
 const mockReq = {
   params: {
@@ -12,6 +12,17 @@ const mockReq = {
   headres: {},
   body: mockUpdateCompltetask,
 };
+
+export class MockUpdateCompleteRepository
+  implements IUpdateCompleteTaskRepository
+{
+  async update(id: string, task: TOmitId<ITasks>): Promise<ITasks> {
+    return {
+      ...task,
+      id,
+    };
+  }
+}
 
 describe("update-complete-tasl controller/update-complete-task", () => {
   it("should returns status codes 200 with a task", async () => {

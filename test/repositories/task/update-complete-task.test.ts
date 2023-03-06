@@ -1,7 +1,8 @@
-import { describe, expect, it } from "vitest";
-import { IUpdateCompleteTaskRepository } from "../../../src/server/controller/task/protocols";
+import { describe, expect, it, beforeEach } from "vitest";
 import { ITasks } from "../../../src/server/models/protocols";
 import { TOmitId } from "../../../src/server/types/types";
+import { MongoUpdateCompleteTaskRepository } from "../../../src/server/repositories/task/update-complete-task";
+import { Task } from "../../../src/server/models/mongo-models/Tasks";
 
 export const mockUpdateCompltetask: TOmitId<ITasks> = {
   boardConnect: "123",
@@ -17,26 +18,25 @@ export const mockUpdateCompltetask: TOmitId<ITasks> = {
   text: "test",
 };
 
-export class MockUpdateCompleteRepository
-  implements IUpdateCompleteTaskRepository
-{
-  async update(id: string, task: TOmitId<ITasks>): Promise<ITasks> {
-    return {
-      ...task,
-      id,
-    };
-  }
-}
+const task = {
+  id: "",
+};
 
 describe("update-complete-Task repository/update-complte-task", () => {
+  beforeEach(async () => {
+    const taskCreate = await Task.create(mockUpdateCompltetask);
+
+    task.id = taskCreate._id.toHexString();
+  });
+
   it("shuold return a task", async () => {
-    const repository = await new MockUpdateCompleteRepository().update(
-      "123",
+    const repository = await new MongoUpdateCompleteTaskRepository().update(
+      task.id,
       mockUpdateCompltetask
     );
 
     expect(repository.subTasks.length).toBe(1);
-    expect(repository.id).toBe("123");
+    expect(typeof repository.id).toBe("string");
     expect(repository.description).toBe("test");
     expect(repository.status).toBe("concluded");
     expect(repository.text).toBe("test");
