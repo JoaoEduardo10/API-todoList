@@ -1,7 +1,22 @@
-import { describe, expect, it } from "vitest";
-import { serverTest } from "../../globals-test";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { Task } from "../../../src/server/models/mongo-models/Tasks";
+import { mockCreateTask, serverTest } from "../../globals-test";
+
+const task = {
+  id: "",
+};
 
 describe("update-complete-task middleware/upadate-complete-task", () => {
+  beforeEach(async () => {
+    const createTask = await Task.create(mockCreateTask);
+
+    task.id = createTask._id.toHexString();
+  });
+
+  afterEach(async () => {
+    await Task.deleteMany();
+  });
+
   it("should returns 404 error from sending an id less than 24", async () => {
     const { statusCode, body } = await serverTest
       .delete("/tasks/1233")
@@ -18,5 +33,12 @@ describe("update-complete-task middleware/upadate-complete-task", () => {
 
     expect(statusCode).toBe(404);
     expect(body).toEqual({ error: "id da task não existe" });
+  });
+
+  it("should delete a task", async () => {
+    const { statusCode, body } = await serverTest.delete(`/tasks/${task.id}`);
+
+    expect(statusCode).toBe(200);
+    expect(body).toBeTruthy();
   });
 });
