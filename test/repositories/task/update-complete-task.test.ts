@@ -26,7 +26,9 @@ describe("update-complete-Task repository/update-complte-task", () => {
   beforeEach(async () => {
     const taskCreate = await Task.create(mockUpdateCompltetask);
 
-    task.id = taskCreate._id.toHexString();
+    const newTask = await Task.findById(taskCreate._id);
+
+    task.id = newTask?._id.toHexString() as string;
   });
 
   it("shuold return a task", async () => {
