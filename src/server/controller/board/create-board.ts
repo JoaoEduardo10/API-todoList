@@ -9,7 +9,7 @@ export class CreateBoardController implements IControllers {
     req: IHttRequest<ICreateBoardParams>
   ): Promise<IHttReponse<Omit<IBoard, "userId">>> {
     const { boardName } = req.body!;
-    const { userId } = req.headers!;
+    const userId = req.headers?.userId as string;
 
     const board = await this.createBoardRepository.create(
       { boardName },
