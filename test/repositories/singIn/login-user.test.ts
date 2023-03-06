@@ -1,41 +1,31 @@
-import { describe, expect, it } from "vitest";
-import { ILoginUserRepository } from "../../../src/server/controller/singIn/protocols";
-import { IUser } from "../../../src/server/models/protocols";
-import { TOmitPassword } from "../../../src/server/types/types";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { User } from "../../../src/server/models/mongo-models/User";
+import { MongoLoginUserRepository } from "../../../src/server/repositories/signIn/login-user";
 
-export const mockLoginUser = {
-  email: "test@gmail.com",
-  password: "123",
+const user = {
+  email: "string",
 };
 
-export class mockLoginUserRepository implements ILoginUserRepository {
-  async login(email: string): Promise<TOmitPassword<IUser>> {
-    let dataBase: TOmitPassword<IUser>;
-
-    const main = () => {
-      dataBase = {
-        email: email,
-        id: "123",
-        name: "test",
-      };
-    };
-
-    main();
-
-    const { email: newEmail, id, name } = dataBase!;
-
-    return { id, name, email: newEmail };
-  }
-}
-
 describe("login-user repository/signIn", () => {
-  it("should return a user existend", async () => {
-    const repoditory = await new mockLoginUserRepository().login(
-      mockLoginUser.email
-    );
+  beforeEach(async () => {
+    const createUser = await User.create({
+      email: "test@gmail.com",
+      name: "test",
+      password: "123",
+    });
 
-    expect(repoditory.email).toBe(mockLoginUser.email);
-    expect(repoditory.id).toBe("123");
+    user.email = createUser.email;
+  });
+
+  afterEach(async () => {
+    await User.deleteMany();
+  });
+
+  it("should return a user existend", async () => {
+    const repoditory = await new MongoLoginUserRepository().login(user.email);
+
+    expect(repoditory.email).toBe(user.email);
+    expect(typeof repoditory.id).toBe("string");
     expect(repoditory.name).toBe("test");
   });
 });

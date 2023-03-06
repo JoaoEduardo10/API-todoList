@@ -1,19 +1,14 @@
-import jwt from "jsonwebtoken";
+import { LoginUserController } from "../../../src/server/controller/singIn/login-user";
 
-import {
-  mockLoginUser,
-  mockLoginUserRepository,
-} from "../../repositories/singIn/login-user.test";
-import {
-  IControllers,
-  IHttReponse,
-  IHttRequest,
-} from "../../../src/server/controller/protocols";
-import {
-  ILoginUserParams,
-  ILoginUserRepository,
-} from "../../../src/server/controller/singIn/protocols";
+import { ILoginUserRepository } from "../../../src/server/controller/singIn/protocols";
 import { describe, expect, it } from "vitest";
+import { IUser } from "../../../src/server/models/protocols";
+import { TOmitPassword } from "../../../src/server/types/types";
+
+const mockLoginUser = {
+  email: "test@gmail.com",
+  password: "123",
+};
 
 export const mockReq = {
   params: {},
@@ -21,30 +16,31 @@ export const mockReq = {
   body: mockLoginUser,
 };
 
-class mockLoginUserController implements IControllers {
-  constructor(private readonly loginUserRepository: ILoginUserRepository) {}
+export class mockLoginUserRepository implements ILoginUserRepository {
+  async login(email: string): Promise<TOmitPassword<IUser>> {
+    let dataBase: TOmitPassword<IUser>;
 
-  async handle(
-    req: IHttRequest<ILoginUserParams>
-  ): Promise<IHttReponse<string>> {
-    const { email } = req.body!;
-
-    const user = await this.loginUserRepository.login(email);
-
-    const token = jwt.sign(user, "test", { expiresIn: "24h" });
-
-    return {
-      body: token,
-      statusCode: 200,
+    const main = () => {
+      dataBase = {
+        email: email,
+        id: "123",
+        name: "test",
+      };
     };
+
+    main();
+
+    const { email: newEmail, id, name } = dataBase!;
+
+    return { id, name, email: newEmail };
   }
 }
 
 describe("login-user controller/login-user", () => {
   it("should return a string end status code 200", async () => {
-    const controller = await new mockLoginUserController(
-      new mockLoginUserRepository()
-    );
+    const reposiory = new mockLoginUserRepository();
+
+    const controller = new LoginUserController(reposiory);
 
     const { statusCode, body } = await controller.handle(mockReq);
 
