@@ -1,5 +1,4 @@
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { createHashPassword } from "../../../src/server/helpers/hashPassword";
 import { Board } from "../../../src/server/models/mongo-models/Board";
 import { User } from "../../../src/server/models/mongo-models/User";
 import { serverTest } from "../../globals-test";
@@ -9,12 +8,12 @@ type TUser = {
   token: string;
 };
 
-const user: TUser = {
-  userId: "",
-  token: "",
-};
-
 describe("create-board  middleware/create-board", () => {
+  const user: TUser = {
+    userId: "",
+    token: "",
+  };
+
   beforeEach(async () => {
     const createUser = {
       email: "test@gmail.com",
