@@ -1,8 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { MockUpdateStatusTaskRepository } from "../../repositories/task/update-status-task.test";
 import { UpdateStatusTaskController } from "../../../src/server/controller/task/update-status-task";
 import { IHttRequest } from "../../../src/server/controller/protocols";
-import { IStatusParams } from "../../../src/server/controller/task/protocols";
+import {
+  IStatusParams,
+  IUpdateStatusRepositopry,
+} from "../../../src/server/controller/task/protocols";
+import { ITasks } from "../../../src/server/models/protocols";
 
 const mockReq: IHttRequest<IStatusParams> = {
   params: {
@@ -13,6 +16,27 @@ const mockReq: IHttRequest<IStatusParams> = {
     status: "concluded",
   },
 };
+
+export class MockUpdateStatusTaskRepository
+  implements IUpdateStatusRepositopry
+{
+  async update(id: string, params: IStatusParams): Promise<ITasks> {
+    return {
+      boardConnect: id,
+      description: "test",
+      id: id,
+      status: params.status,
+      subTasks: [
+        {
+          concluded: false,
+          text: "test",
+          uuid: id,
+        },
+      ],
+      text: "test",
+    };
+  }
+}
 
 describe("update-status  controller/update-status-task", () => {
   it("should return status codes 200 with a new task", async () => {
