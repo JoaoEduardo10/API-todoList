@@ -1,7 +1,6 @@
 import { RequestHandler } from "express";
 import { Unauthorezid } from "../helpers/api-errors";
 import { compareJwt } from "../helpers/jwt-user";
-import { User } from "../models/mongo-models/User";
 
 export const authenticationMiddleware: RequestHandler = async (
   req,
@@ -21,12 +20,6 @@ export const authenticationMiddleware: RequestHandler = async (
   }
 
   const verifyToken = compareJwt(token);
-
-  const user = User.findById(verifyToken.id);
-
-  if (!user) {
-    throw new Unauthorezid("Token invalido!");
-  }
 
   req.headers.userId = verifyToken.id as string;
 
