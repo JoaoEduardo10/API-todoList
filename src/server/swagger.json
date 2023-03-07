@@ -85,6 +85,22 @@
           }
         }
       }
+    },
+    "/boards": {
+      "post": {
+        "summary": "Criação da board",
+        "description": "Essa rota será responsavel por criar um Conteiner de tasks 'Board'",
+        "tags": ["Board"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -118,6 +134,19 @@
             "required": true,
             "type": "string",
             "unique": true
+          }
+        }
+      },
+      "Board": {
+        "type": "object",
+        "properties": {
+          "boardName": {
+            "type": "string",
+            "required": true
+          },
+          "taskConnect": {
+            "type": "string",
+            "default": "1234"
           }
         }
       }
