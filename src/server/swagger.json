@@ -56,6 +56,35 @@
           }
         }
       }
+    },
+    "/login": {
+      "post": {
+        "summary": "validação de usuario",
+        "description": "Essa rota será responsavel por fazer o login do usuario",
+        "tags": ["Login"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/Login"
+              },
+              "example": {
+                "email": "joaoeduardo@gmail.com",
+                "password": "123"
+              }
+            }
+          }
+        },
+        "responses": {
+          "404": {
+            "description": "Not_Fould"
+          },
+          "400": {
+            "deacription": "Bad_Request"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -75,6 +104,20 @@
           "password": {
             "type": "string",
             "required": true
+          }
+        }
+      },
+      "Login": {
+        "type": "object",
+        "properties": {
+          "password": {
+            "required": true,
+            "type": "string"
+          },
+          "email": {
+            "required": true,
+            "type": "string",
+            "unique": true
           }
         }
       }
