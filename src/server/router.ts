@@ -39,25 +39,43 @@ router.post(
 );
 
 // task
-router.get("/tasks/:taskId", getTaskMiddleware, getTaskRouter);
-router.post("/tasks", createTaskMiddleware, createTaskRouter);
+router.get(
+  "/tasks/:taskId",
+  authenticationMiddleware,
+  getTaskMiddleware,
+  getTaskRouter
+);
+router.post(
+  "/tasks",
+  authenticationMiddleware,
+  createTaskMiddleware,
+  createTaskRouter
+);
 router.patch(
   "/tasks/:subTaskId/subtask",
+  authenticationMiddleware,
   updateSubTaskMiddleware,
   UpdateSubTaskRouter
 );
 router.patch(
   "/tasks/:statusId/status",
+  authenticationMiddleware,
   updateStatusTaskMiddleware,
   updateStatustaskRouter
 );
 
 router.patch(
   "/tasks/:taskId",
+  authenticationMiddleware,
   updateCompleteTaskMiddleware,
   updateCompleteTaskRouter
 );
 
-router.delete("/tasks/:taskId", deleteTaskMiddleware, deleteTaskRouter);
+router.delete(
+  "/tasks/:taskId",
+  authenticationMiddleware,
+  deleteTaskMiddleware,
+  deleteTaskRouter
+);
 
 export { router };

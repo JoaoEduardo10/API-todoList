@@ -3,12 +3,12 @@ import { Board } from "../../../src/server/models/mongo-models/Board";
 import { User } from "../../../src/server/models/mongo-models/User";
 import { serverTest } from "../../globals-test";
 
-type TUser = {
-  userId: string;
-  token: string;
-};
-
 describe("create-board  middleware/create-board", () => {
+  type TUser = {
+    userId: string;
+    token: string;
+  };
+
   const user: TUser = {
     userId: "",
     token: "",

@@ -3,22 +3,43 @@ import { Board } from "../../../src/server/models/mongo-models/Board";
 import { Task } from "../../../src/server/models/mongo-models/Tasks";
 import { User } from "../../../src/server/models/mongo-models/User";
 import { serverTest } from "../../globals-test";
+import { createHashPassword } from "../../../src/server/helpers/hashPassword";
+import { Schema } from "mongoose";
 
 const task = {
   id: "",
 };
 
 describe("update-subTask middleware/update-subtask-task", () => {
+  type TUser = {
+    userId: string | Schema.Types.ObjectId;
+    token: string;
+  };
+
+  const user: TUser = {
+    userId: "",
+    token: "",
+  };
+
   beforeEach(async () => {
-    const user = await User.create({
+    const password = await createHashPassword("123");
+
+    const createUser = await User.create({
       email: "test@gmail.com",
+      password,
       name: "test",
-      password: "123",
     });
+
+    const authenticationUser = await serverTest
+      .post("/login")
+      .send({ email: createUser.email, password: "123" });
+
+    user.userId = createUser._id as unknown as Schema.Types.ObjectId;
+    user.token = authenticationUser.body;
 
     await Board.create({
       boardName: "test",
-      userId: user._id,
+      userId: user.userId,
       taskConnect: "123",
     });
 
@@ -46,9 +67,9 @@ describe("update-subTask middleware/update-subtask-task", () => {
   });
 
   it("should retun an error for sending an in less than 24 characters with status code 404", async () => {
-    const { statusCode, body } = await serverTest.patch(
-      "/tasks/40028922/subtask"
-    );
+    const { statusCode, body } = await serverTest
+      .patch("/tasks/40028922/subtask")
+      .set({ Authorization: `Bearer ${user.token}` });
 
     expect(statusCode).toBe(404);
     expect(body).toEqual({ error: "Id invalido" });
@@ -57,6 +78,7 @@ describe("update-subTask middleware/update-subtask-task", () => {
   it("should retun an error for sending at least on subTask with status code 404", async () => {
     const { statusCode, body } = await serverTest
       .patch("/tasks/63ff9e27777e30323ed90a65/subtask")
+      .set({ Authorization: `Bearer ${user.token}` })
       .send([]);
 
     expect(statusCode).toBe(400);
@@ -66,6 +88,7 @@ describe("update-subTask middleware/update-subtask-task", () => {
   it("should retun an error for sending a uuid with status code 404", async () => {
     const { statusCode, body } = await serverTest
       .patch("/tasks/63ff9e27777e30323ed90a65/subtask")
+      .set({ Authorization: `Bearer ${user.token}` })
       .send([{ concluded: false }]);
 
     expect(statusCode).toBe(400);
@@ -75,6 +98,7 @@ describe("update-subTask middleware/update-subtask-task", () => {
   it("should retun an error for sending a concluded with status code 400", async () => {
     const { statusCode, body } = await serverTest
       .patch("/tasks/63ff9e27777e30323ed90a65/subtask")
+      .set({ Authorization: `Bearer ${user.token}` })
       .send([{ uuid: "123" }]);
 
     expect(statusCode).toBe(400);
@@ -84,6 +108,7 @@ describe("update-subTask middleware/update-subtask-task", () => {
   it("should retun an error for sending the same uuid with status code 404", async () => {
     const { statusCode, body } = await serverTest
       .patch(`/tasks/63ff9e27777e30323ed90a65/subtask`)
+      .set({ Authorization: `Bearer ${user.token}` })
       .send([
         { uuid: "123", concluded: false },
         { uuid: "123", concluded: false },
@@ -96,6 +121,7 @@ describe("update-subTask middleware/update-subtask-task", () => {
   it("should returns 404 error from sending a wue id does not exist", async () => {
     const { statusCode, body } = await serverTest
       .patch("/tasks/63ff9e27777e30323ed90a65/subtask")
+      .set({ Authorization: `Bearer ${user.token}` })
       .send([
         { uuid: "175", concluded: false },
         { uuid: "134", concluded: false },
@@ -108,6 +134,7 @@ describe("update-subTask middleware/update-subtask-task", () => {
   it("should returns staus codes 200 with subTask updated", async () => {
     const { statusCode, body } = await serverTest
       .patch(`/tasks/${task.id}/subtask`)
+      .set({ Authorization: `Bearer ${user.token}` })
       .send([{ uuid: "123", concluded: false }]);
 
     expect(statusCode).toBe(200);
