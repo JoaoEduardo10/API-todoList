@@ -166,6 +166,55 @@
         }
       }
     },
+    "/boards/{boardId}": {
+      "get": {
+        "summary": "Busca uma board por id",
+        "description": "Buasca uma baord criadas pelo usuario",
+        "tags": ["Board"],
+        "parameters": [
+          {
+            "name": "boardId",
+            "in": "params",
+            "description": "Buscar board por id",
+            "required": true
+          }
+        ],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "400": {
+            "description": "Bad_Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not_Fould"
+          },
+          "500": {
+            "description": "Internal_Server_Error"
+          },
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "boardName": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "taskConnect": {
+                    "type": "string"
+                  },
+                  "tasks": {
+                    "$ref": "#/components/schemas/Task"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/tasks": {
       "post": {
         "summary": "Creação da task",
