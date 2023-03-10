@@ -91,11 +91,44 @@
         "summary": "Criação da board",
         "description": "Essa rota será responsavel por criar um Conteiner de tasks 'Board'",
         "tags": ["Board"],
+        "security": [{ "bearerAuth": [] }],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "type": "object"
+                "type": "object",
+                "boardName": {
+                  "required": true,
+                  "type": "string"
+                }
+              },
+              "example": {
+                "boardName": "Test"
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "deacription": "Bad_Request"
+          },
+          "404": {
+            "description": "Not_Fould"
+          },
+          "500": {
+            "description": "Internal_Server_Error"
+          },
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Board"
+                }
               }
             }
           }
@@ -147,6 +180,10 @@
           "taskConnect": {
             "type": "string",
             "default": "1234"
+          },
+          "userId": {
+            "type": "object",
+            "required": true
           }
         }
       }
@@ -154,7 +191,7 @@
     "securitySchemes": {
       "bearerAuth": {
         "type": "http",
-        "schema": "Bearer",
+        "scheme": "bearer",
         "bearerFormat": "JWT"
       }
     }
