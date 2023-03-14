@@ -226,7 +226,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
+                "type": "array",
                 "$ref": "#/components/schemas/Task"
               },
               "example": {
@@ -263,8 +263,21 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
+                  "type": "array",
                   "$ref": "#/components/schemas/Task"
+                },
+                "example": {
+                  "text": "Creat uma aplicação back and",
+                  "description": "criação",
+                  "status": "pending",
+                  "subTasks": [
+                    {
+                      "text": "apenas um test",
+                      "concluded": true,
+                      "uuid": "1234"
+                    }
+                  ],
+                  "boardConnect": "1234"
                 }
               }
             }
@@ -303,8 +316,95 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
+                  "type": "array",
                   "$ref": "#/components/schemas/Task"
+                },
+                "example": {
+                  "text": "Creat uma aplicação back and",
+                  "description": "criação",
+                  "status": "pending",
+                  "subTasks": [
+                    {
+                      "text": "apenas um test",
+                      "concluded": true,
+                      "uuid": "1234"
+                    }
+                  ],
+                  "boardConnect": "1234"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Atualiza toda a Task",
+        "description": "Atualiza toda a Task por id",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "description": "Buscar task por id",
+            "required": true
+          }
+        ],
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Task"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "$ref": "#/components/schemas/Task"
+              },
+              "example": {
+                "text": "Um teste",
+                "description": "Descrição de um test",
+                "status": "pending",
+                "subTasks": [
+                  {
+                    "text": "apenas um test",
+                    "concluded": false,
+                    "uuid": "1234"
+                  }
+                ],
+                "boardConnect": "1234"
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Bad_Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not_Fould"
+          },
+          "500": {
+            "description": "Internal_Server_Error"
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "$ref": "#/components/schemas/Task"
+                },
+                "example": {
+                  "text": "Creat uma aplicação back and",
+                  "description": "criação",
+                  "status": "pending",
+                  "subTasks": [
+                    {
+                      "text": "apenas um test",
+                      "concluded": true,
+                      "uuid": "1234"
+                    }
+                  ],
+                  "boardConnect": "1234"
                 }
               }
             }
@@ -380,23 +480,23 @@
             "default": "pending"
           },
           "subTasks": {
-            "required": true,
-            "type": [
-              {
-                "text": {
-                  "type": "string",
-                  "required": true
-                },
-                "concluded": {
-                  "type": "boolean",
-                  "default": false
-                },
-                "uuid": {
-                  "type": "String",
-                  "default": "1234"
-                }
+            "required": false,
+            "type": "array",
+            "item": {
+              "type": "array",
+              "text": {
+                "required": true,
+                "type": "string"
+              },
+              "concluded": {
+                "type": "boolean",
+                "default": false
+              },
+              "uuid": {
+                "type": "string",
+                "default": "1234"
               }
-            ]
+            }
           },
           "boardConnect": {
             "required": true,
