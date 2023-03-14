@@ -30,7 +30,12 @@ router.post("/login", loginUserMiddlware, loginUserRouter);
 
 // board
 router.get("/boards", authenticationMiddleware, getAllBoardsRouter);
-router.get("/boards/:boardId", getBoardMiddleware, getBoardRouter);
+router.get(
+  "/boards/:boardId",
+  authenticationMiddleware,
+  getBoardMiddleware,
+  getBoardRouter
+);
 router.post(
   "/boards",
   authenticationMiddleware,
