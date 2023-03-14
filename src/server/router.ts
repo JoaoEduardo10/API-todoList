@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { authenticationMiddleware } from "./middlewares/authentication";
 import { createBoardMiddleware } from "./middlewares/board/create-board";
+import { DeleteBoardMiddleware } from "./middlewares/board/delete-board";
 import { getBoardMiddleware } from "./middlewares/board/get-board";
 import { createUserMiddleware } from "./middlewares/signUp/create-user";
 import { loginUserMiddlware } from "./middlewares/singIn/login-user";
@@ -11,6 +12,7 @@ import { updateCompleteTaskMiddleware } from "./middlewares/task/update-complete
 import { updateStatusTaskMiddleware } from "./middlewares/task/update-status-task";
 import { updateSubTaskMiddleware } from "./middlewares/task/update-suTask-task";
 import { createBoardRouter } from "./useCases/board/create-board";
+import { deleteBoardRouter } from "./useCases/board/delete-board";
 import { getBoardRouter } from "./useCases/board/get-board";
 import { getAllBoardsRouter } from "./useCases/board/getAll-boads";
 import { loginUserRouter } from "./useCases/signIn/login-user";
@@ -41,6 +43,12 @@ router.post(
   authenticationMiddleware,
   createBoardMiddleware,
   createBoardRouter
+);
+router.delete(
+  "/boards/:boardId",
+  authenticationMiddleware,
+  DeleteBoardMiddleware,
+  deleteBoardRouter
 );
 
 // task
