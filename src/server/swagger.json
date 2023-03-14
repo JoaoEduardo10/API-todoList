@@ -475,6 +475,88 @@
           }
         }
       }
+    },
+    "/tasks/{subTaskId}/subtask": {
+      "patch": {
+        "summary": "Atualiza os subTask da Task",
+        "description": "Atualiza toda a SubTask da Task por id",
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Task"],
+        "parameters": [
+          {
+            "name": ":subTaskId",
+            "in": "path",
+            "description": "Adicione o id da task que deseja atualiza a subTask",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "properties": {
+                  "type": "object",
+                  "text": {
+                    "type": "string"
+                  },
+                  "uuid": {
+                    "type": "string"
+                  },
+                  "concluded": {
+                    "type": "boolean"
+                  }
+                }
+              },
+              "example": [
+                {
+                  "text": "test",
+                  "uuid": "123",
+                  "concluded": false
+                }
+              ]
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Bad_Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not_Fould"
+          },
+          "500": {
+            "description": "Internal_Server_Error"
+          },
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Task"
+                },
+                "example": {
+                  "text": "Creat uma aplicação back and",
+                  "description": "criação",
+                  "status": "pending",
+                  "subTasks": [
+                    {
+                      "text": "apenas um test",
+                      "concluded": true,
+                      "uuid": "1234"
+                    }
+                  ],
+                  "boardConnect": "1234"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
