@@ -13,10 +13,6 @@
     {
       "url": "http://localhost:8000/",
       "description": "Api de desenvolvimento"
-    },
-    {
-      "url": "https://todo-list-api-eduardo.onrender.com/",
-      "description": "Api de produção"
     }
   ],
   "paths": {
