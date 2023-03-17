@@ -18,5 +18,5 @@ export const loginUserRouter: RequestHandler<{}, {}, ILoginUserParams> = async (
     req as IHttRequest<ILoginUserParams>
   );
 
-  res.status(statusCode).json({ jwt: body });
+  res.status(statusCode).json(body);
 };
