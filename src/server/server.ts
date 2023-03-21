@@ -5,8 +5,11 @@ import { globalsErrors } from "./middlewares/globals-errors";
 import { router } from "./router";
 import swagger from "swagger-ui-express";
 import swaggerDocs from "./swagger.json";
+import cors from "cors";
 
 const server = express();
+
+server.use(cors());
 
 server.use(express.json());
 
