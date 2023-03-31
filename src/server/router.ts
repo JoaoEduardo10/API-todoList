@@ -52,7 +52,12 @@ router.delete(
   DeleteBoardMiddleware,
   deleteBoardRouter
 );
-router.patch("/boards/:boardId", updateBoardMiddleware, updateBoardRouter);
+router.patch(
+  "/boards/:boardId",
+  authenticationMiddleware,
+  updateBoardMiddleware,
+  updateBoardRouter
+);
 
 // task
 router.get(
