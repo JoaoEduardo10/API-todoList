@@ -36,6 +36,10 @@ export interface IGetAllBoardsRepository {
   get(userId: string): Promise<Omit<IGetBoard, "tasks">[]>;
 }
 
+export interface IUpdateBoardRepository {
+  update(boardId: string, boardName: string): Promise<IBoard>;
+}
+
 export interface IDeleteBoardsRepository {
   delete(boardId: string): Promise<IBoard>;
 }
