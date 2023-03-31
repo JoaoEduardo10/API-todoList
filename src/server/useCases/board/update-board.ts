@@ -3,7 +3,7 @@ import { UpdateBoardController } from "../../controller/board/update-boards";
 import { IHttRequest } from "../../controller/protocols";
 import { MongoUpdateBoardRepository } from "../../repositories/board/update-board";
 
-export const boardRouter: RequestHandler = async (req, res) => {
+export const updateBoardRouter: RequestHandler = async (req, res) => {
   const mongoUpdateBoardRepository = new MongoUpdateBoardRepository();
 
   const updateBoardController = new UpdateBoardController(

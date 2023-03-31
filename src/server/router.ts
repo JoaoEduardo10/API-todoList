@@ -3,6 +3,7 @@ import { authenticationMiddleware } from "./middlewares/authentication";
 import { createBoardMiddleware } from "./middlewares/board/create-board";
 import { DeleteBoardMiddleware } from "./middlewares/board/delete-board";
 import { getBoardMiddleware } from "./middlewares/board/get-board";
+import { updateBoardMiddleware } from "./middlewares/board/update-board";
 import { createUserMiddleware } from "./middlewares/signUp/create-user";
 import { loginUserMiddlware } from "./middlewares/singIn/login-user";
 import { createTaskMiddleware } from "./middlewares/task/create-task";
@@ -15,6 +16,7 @@ import { createBoardRouter } from "./useCases/board/create-board";
 import { deleteBoardRouter } from "./useCases/board/delete-board";
 import { getBoardRouter } from "./useCases/board/get-board";
 import { getAllBoardsRouter } from "./useCases/board/getAll-boads";
+import { updateBoardRouter } from "./useCases/board/update-board";
 import { loginUserRouter } from "./useCases/signIn/login-user";
 import { createUserRouter } from "./useCases/signUp/create-user";
 import { createTaskRouter } from "./useCases/task/create-task";
@@ -50,6 +52,7 @@ router.delete(
   DeleteBoardMiddleware,
   deleteBoardRouter
 );
+router.patch("/boards/:boardId", updateBoardMiddleware, updateBoardRouter);
 
 // task
 router.get(
