@@ -34,14 +34,6 @@ export const updateSubTaskMiddleware: RequestHandler<
     }
   });
 
-  for (let i = 0; i < req.body.length - 1; i++) {
-    for (let j = req.body.length - 1; j > 0; j--) {
-      if (subTasks[i].uuid == req.body[j as number].uuid) {
-        throw new Bad_Request("Id já usado ou esta com um campo a mais");
-      }
-    }
-  }
-
   const task = await Task.findById(subTaskId);
 
   if (!task) {
